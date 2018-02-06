@@ -112,6 +112,10 @@ object Lab2 extends jsy.util.JsyApplication with Lab2Like {
         case Gt => if(toNumber(eval(e1)) > toNumber(eval(e2))) B(true) else B(false)
         case Ge => if(toNumber(eval(e1)) >= toNumber(eval(e2))) B(true) else B(false)
       }
+      case Unary(uop, e1) => uop match{
+        case Neg => ???
+        case Not => ???
+      }
 
 
 
