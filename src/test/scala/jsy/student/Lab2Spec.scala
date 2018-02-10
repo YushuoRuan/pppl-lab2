@@ -54,12 +54,29 @@ class Lab2Spec(lab2: Lab2Like) extends FlatSpec {
     assert(e3 === N(3))
   }
 
+  it should "add two strings and return a string" in {
+    val e1 = S("hello ")
+    val e2 = S("World")
+    val e3 = eval(Binary(Plus, e1, e2))
+    assert(e3 === S("hello World"))
+  }
+
+
+  it should "add a strings and a number, return a string" in {
+    val e1 = S("hello ")
+    val e2 = N(1)
+    val e3 = eval(Binary(Plus, e1, e2))
+    assert(e3 === S("hello 1"))
+  }
+
+
   "Minus" should "subtract two number values and return a number" in {
     val e1 = N(3)
     val e2 = N(1)
     val e3 = eval(Binary(Minus, e1, e2))
     assert(e3 === N(2))
   }
+
 
   "Times" should "multiply two number values and return a number" in {
     val e1 = N(3)
@@ -115,14 +132,21 @@ class Lab2Spec(lab2: Lab2Like) extends FlatSpec {
     val e3 = eval(Binary(Lt, e1, e2))
     assert(e3 === B(true))
   } 
-  
+
   it should "return false if the first expression is not strictly less than the second" in {
     val e1 = N(7)
     val e2 = N(5)
     val e3 = eval(Binary(Lt, e1, e2))
     assert(e3 === B(false))
-  } 
-  
+  }
+
+  "Lt" should "return true if the first string is less than the second" in {
+    val e1 = S("eee")
+    val e2 = S("gg")
+    val e3 = eval(Binary(Lt, e1, e2))
+    assert(e3 === B(true))
+  }
+
   it should "return false if two number values are the same" in {
     val e1 = N(5)
     val e2 = N(5)
