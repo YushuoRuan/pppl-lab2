@@ -69,6 +69,20 @@ class Lab2Spec(lab2: Lab2Like) extends FlatSpec {
     assert(e3 === S("hello 1"))
   }
 
+  it should "add a Number and a string, return a string" in {
+    val e1 = N(1)
+    val e2 = S("hello ")
+    val e3 = eval(Binary(Plus, e1, e2))
+    assert(e3 === S("1hello "))
+  }
+
+  it should "add Booleans" in {
+    val e1 = B(true)
+    val e2 = B(true)
+    val e3 = eval(Binary(Plus, e1, e2))
+    assert(e3 === N(2))
+  }
+
 
   "Minus" should "subtract two number values and return a number" in {
     val e1 = N(3)
@@ -112,6 +126,20 @@ class Lab2Spec(lab2: Lab2Like) extends FlatSpec {
     assert(e3 === B(false))
   }
 
+  it should "return false if two Undefined values" in {
+    val e1 = Undefined
+    val e2 = Undefined
+    val e3 = eval(Binary(Eq, e1, e2))
+    assert(e3 === B(true))
+  }
+
+  it should "return true if a string number is equal to int number" in {
+    val e1 = S("3")
+    val e2 = N(3)
+    val e3 = eval(Binary(Eq, e1, e2))
+    assert(e3 === B(true))
+  }
+
   "Ne" should "return true if two numerical values are different" in {
     val e1 = N(5)
     val e2 = N(7)
@@ -140,7 +168,7 @@ class Lab2Spec(lab2: Lab2Like) extends FlatSpec {
     assert(e3 === B(false))
   }
 
-  "Lt" should "return true if the first string is less than the second" in {
+  it should "return true if the first string is less than the second" in {
     val e1 = S("eee")
     val e2 = S("gg")
     val e3 = eval(Binary(Lt, e1, e2))
@@ -180,21 +208,28 @@ class Lab2Spec(lab2: Lab2Like) extends FlatSpec {
     val e2 = N(7)
     val e3 = eval(Binary(Gt, e1, e2))
     assert(e3 === B(true))
-  } 
-  
+  }
+
   it should "return false if the first expression is not strictly greater than the second" in {
     val e1 = N(4)
     val e2 = N(5)
     val e3 = eval(Binary(Gt, e1, e2))
     assert(e3 === B(false))
-  } 
+  }
   
   it should "return false if two number values are the same" in {
     val e1 = N(5)
     val e2 = N(5)
     val e3 = eval(Binary(Gt, e1, e2))
     assert(e3 === B(false))
-  } 
+  }
+
+  it should "return false if the first string is not strictly greater than the second" in {
+    val e1 = S("eee")
+    val e2 = S("gg")
+    val e3 = eval(Binary(Gt, e1, e2))
+    assert(e3 === B(false))
+  }
 
   "Ge" should "return true if the first expression is greater than the second" in {
     val e1 = N(8)

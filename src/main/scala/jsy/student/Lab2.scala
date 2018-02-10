@@ -65,6 +65,7 @@ object Lab2 extends jsy.util.JsyApplication with Lab2Like {
       case B(b) => if(b==true) 1 else 0
       case S(s) => try s.toDouble catch { case _ => Double.NaN }
       case Undefined => Double.NaN
+      case _ => throw new UnsupportedOperationException
     }
   }
 
@@ -76,7 +77,7 @@ object Lab2 extends jsy.util.JsyApplication with Lab2Like {
       case N(n) => if(n<0||n>0) true else false
       case S(s) => if(s=="") false else true
       case Undefined => false
-      case S(_) => true
+      case _ => throw new UnsupportedOperationException
     }
   }
 
@@ -88,6 +89,7 @@ object Lab2 extends jsy.util.JsyApplication with Lab2Like {
       case B(true) => "true"
       case B(false) => "false"
       case N(n)=> if (n.isWhole()) "%.0f" format n else n.toString
+      case _ => throw new UnsupportedOperationException
     }
   }
 
