@@ -76,6 +76,7 @@ object Lab2 extends jsy.util.JsyApplication with Lab2Like {
       case N(n) => if(n<0||n>0) true else false
       case S(s) => if(s=="") false else true
       case Undefined => false
+      case S(_) => true
     }
   }
 
@@ -99,7 +100,7 @@ object Lab2 extends jsy.util.JsyApplication with Lab2Like {
       case Undefined => Undefined
       case Var(x) => lookup(env, x)
 
-      case ConstDecl(x, e1, e2) => eval(extend(env, x, e1), e2)
+      case ConstDecl(x, e1, e2) => eval(extend(env, x, eval(env, e1)), e2)
       /* Inductive Cases */
       case Binary(bop, e1, e2) => bop match {
 
@@ -148,13 +149,14 @@ object Lab2 extends jsy.util.JsyApplication with Lab2Like {
           case (_, _) => if (toNumber(eval(env, e1)) >= toNumber(eval(env, e2))) B(true) else B(false)
         }
 
-        case Seq => eval(env, e2)
+        case Seq => eval(env, e1); eval(env, e2)
+
       }
       case Unary(uop, e1) => uop match{
         case Neg => N(-toNumber(eval(env, e1)))
         case Not => B(!toBoolean(eval(env, e1)))
       }
-      case If(e1, e2, e3) => if(e1==B(true)) eval(env, e2) else eval(env, e3)
+      case If(e1, e2, e3) => if(toBoolean(eval(env, e1))) eval(env, e2) else eval(env, e3)
 
 
 
